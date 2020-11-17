@@ -1,7 +1,15 @@
 import React from 'react'
-import Document, { DocumentContext, DocumentInitialProps } from 'next/document'
+import Document, {
+  DocumentContext,
+  DocumentInitialProps,
+  Html,
+  Main,
+  Head,
+  NextScript
+} from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
+import icon from '../assets/favicon-32x32.png'
 export default class MyDocument extends Document {
   static async getInitialProps(
     ctx: DocumentContext
@@ -28,5 +36,24 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal()
     }
+  }
+
+  render() {
+    return (
+      <Html lang="pt">
+        <Head>
+          <meta charSet="utf-8" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+          ></link>
+          <link rel="icon" href={icon} />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    )
   }
 }
