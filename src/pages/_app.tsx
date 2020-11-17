@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { AppProps } from 'next/app'
 import GlobalStyles from '../styles/global'
 import { ThemeProvider } from 'styled-components'

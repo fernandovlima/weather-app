@@ -6,7 +6,8 @@ import qs from 'qs'
 
 import { Forecast } from '../../api/forecastTypes'
 
-import { Container } from './styles'
+import { Container, SearchWrapper } from './styles'
+import SearchInput from './SearchInput'
 
 const Search: React.FC = () => {
   // const params = {
@@ -45,7 +46,9 @@ const Search: React.FC = () => {
 
   return (
     <Container>
-      <h2>Search component</h2>
+      <SearchWrapper>
+        <SearchInput />
+      </SearchWrapper>
     </Container>
   )
 }

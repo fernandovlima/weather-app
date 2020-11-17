@@ -6,4 +6,9 @@ export const Container = styled.div`
 `
 export const ContentContainer = styled.div`
   display: flex;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
 `
