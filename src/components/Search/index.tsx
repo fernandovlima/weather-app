@@ -43,7 +43,11 @@ const Search: React.FC = () => {
   //   return <div>Carregando...</div>
   // }
 
-  return <Container />
+  return (
+    <Container>
+      <h2>Search component</h2>
+    </Container>
+  )
 }
 
 export default Search

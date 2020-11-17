@@ -1,14 +1,21 @@
 import React from 'react'
+import Forecast from '../Forecast'
 import Header from '../Header'
 import Search from '../Search'
 
-import { Container } from './styles'
+import { Container, ContentContainer } from './styles'
 
-const Layout: React.FC = () => {
+interface LayoutProps {
+  toggleTheme: () => void
+}
+const Layout: React.FC<LayoutProps> = ({ toggleTheme }) => {
   return (
     <Container>
-      <Header />
-      <Search />
+      <Header toggleTheme={toggleTheme} />
+      <ContentContainer>
+        <Search />
+        <Forecast />
+      </ContentContainer>
     </Container>
   )
 }
