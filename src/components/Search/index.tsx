@@ -1,16 +1,29 @@
-import React from 'react'
-import { apiKey } from '../../api/apikey'
-
-import { useFetch } from '../../hooks/useFetch'
-import qs from 'qs'
+import React, { useCallback, useEffect, useState } from 'react'
+import publicIp from 'public-ip'
 
 import { Forecast } from '../../api/forecastTypes'
 
 import { Container, SearchWrapper } from './styles'
 import SearchInput from './SearchInput'
+import { getLocationByIP } from '../../api/getFunctions'
 
 const Search: React.FC = () => {
-  // const params = {
+  const [location, setLocation] = useState<string>('')
+  const [ipAddress, setIpAddress] = useState<string>('')
+
+  const getIp = useCallback(async () => {
+    const IP = await publicIp.v4()
+    setIpAddress(IP)
+    const cityByIp = await getLocationByIP(ipAddress)
+    setLocation(cityByIp)
+  }, [])
+
+  useEffect(() => {
+    getIp()
+  }, [])
+
+  console.log(location)
+
   //   apikey: apiKey,
   //   q: 'curitiba',
   //   language: 'pt-BR'

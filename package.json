@@ -13,6 +13,7 @@
     "next": "10.0.1",
     "next-images": "^1.6.2",
     "polished": "^4.0.3",
+    "public-ip": "^4.0.2",
     "qs": "^6.9.4",
     "react": "17.0.1",
     "react-dom": "17.0.1",

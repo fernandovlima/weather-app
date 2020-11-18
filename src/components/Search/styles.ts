@@ -52,7 +52,7 @@ export const SearchWrapper = styled.div`
 
   label {
     display: block;
-    width: 100%
+    width: 100%;
     transition: all 0.3s;
     transform: translateY(0rem);
     text-align: start;
