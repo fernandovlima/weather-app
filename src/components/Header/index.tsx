@@ -4,18 +4,12 @@ import SwithTheme from 'react-switch'
 
 import { BsMoon, BsSun } from 'react-icons/bs'
 import { Container, LeftContainer } from './styles'
-import dayjs from 'dayjs'
-import localizedFormat from 'dayjs/plugin/localizedFormat'
-import 'dayjs/locale/pt-br'
 
 interface HeaderProps {
   toggleTheme: () => void
 }
 const Header: React.FC<HeaderProps> = ({ toggleTheme }) => {
   const { colors, title } = useContext(ThemeContext)
-  dayjs.extend(localizedFormat)
-  dayjs.locale('pt-br')
-  const now = dayjs().format('llll')
 
   const LightThemeIcon = () => (
     <div
@@ -53,7 +47,6 @@ const Header: React.FC<HeaderProps> = ({ toggleTheme }) => {
     <Container>
       <LeftContainer>
         <h3>Previsão do tempo</h3>
-        <p>{`${now}`}</p>
       </LeftContainer>
 
       <SwithTheme
