@@ -1,4 +1,3 @@
-import { lighten } from 'polished'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -7,6 +6,7 @@ export const Container = styled.div`
   height: calc(100vh - 60px);
   align-items: center;
   justify-content: center;
+  transition: all 0.5s;
 
   @media (max-width: 800px) {
     padding-top: 2rem;
@@ -22,12 +22,12 @@ export const SearchWrapper = styled.div`
   justify-content: center;
   min-width: 80%;
   min-height: 80%;
-  background-color: ${props => lighten(0.2, props.theme.colors.background)};
+  background-color: ${props => props.theme.colors.surface};
   border-radius: 0.5rem;
-  box-shadow: 0px 2px 5px 0px ${props => props.theme.colors.header};
+  box-shadow: 0px 2px 6px ${props => props.theme.colors.shadow};
 
   input {
-    background: ${props => lighten(0.13, props.theme.colors.primary)};
+    background: ${props => props.theme.colors.surfacelight};
     border-radius: 0.5rem;
     border: none;
     width: 80%;

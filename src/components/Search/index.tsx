@@ -1,29 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import publicIp from 'public-ip'
-
-import { Forecast } from '../../api/forecastTypes'
+import React from 'react'
 
 import { Container, SearchWrapper } from './styles'
 import SearchInput from './SearchInput'
-import { getLocationByIP } from '../../api/getFunctions'
 
-const Search: React.FC = () => {
-  const [location, setLocation] = useState<string>('')
-  const [ipAddress, setIpAddress] = useState<string>('')
-
-  const getIp = useCallback(async () => {
-    const IP = await publicIp.v4()
-    setIpAddress(IP)
-    const cityByIp = await getLocationByIP(ipAddress)
-    setLocation(cityByIp)
-  }, [])
-
-  useEffect(() => {
-    getIp()
-  }, [])
-
-  console.log(location)
-
+interface SearchProps {
+  location: string
+}
+const Search: React.FC<SearchProps> = ({ location }) => {
   //   apikey: apiKey,
   //   q: 'curitiba',
   //   language: 'pt-BR'
@@ -60,6 +43,7 @@ const Search: React.FC = () => {
   return (
     <Container>
       <SearchWrapper>
+        {location ? <h3>{`Você está em ${location}`}</h3> : ''}
         <SearchInput />
       </SearchWrapper>
     </Container>

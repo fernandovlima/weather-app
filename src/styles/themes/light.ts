@@ -2,9 +2,12 @@ export default {
   title: 'light',
 
   colors: {
-    background: '#f4f4f2',
+    background: '#dbdbdb',
+    surface: '#e8e8e8',
+    surfacelight: '#fff',
     text: '#495464',
     primary: '#bbbfca',
-    header: '#e8e8e8'
+    header: '#e8e8e8',
+    shadow: '#c2c2c2'
   }
 }
