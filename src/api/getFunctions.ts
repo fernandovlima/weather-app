@@ -1,13 +1,25 @@
 import qs from 'qs'
 import { apiKey } from './apikey'
 
+export interface TLocation {
+  name: string
+  key: string
+}
+
 interface TLocationIPResponse {
   ParentCity: {
+    LocalizedName: string
+    Key: string
+  }
+  AdmintrativeArea: {
+    ID: string
+  }
+  Country: {
     LocalizedName: string
   }
 }
 
-export async function getLocationByIP(ip: string): Promise<string> {
+export async function getLocationByIP(ip: string): Promise<TLocation> {
   const params = {
     apikey: apiKey,
     q: ip,
@@ -22,5 +34,10 @@ export async function getLocationByIP(ip: string): Promise<string> {
   )
   const data: TLocationIPResponse = await response.json()
 
-  return data.ParentCity.LocalizedName
+  const location = {
+    name: `${data.ParentCity.LocalizedName} - ${data.AdmintrativeArea.ID} - ${data.Country.LocalizedName}`,
+    key: data.ParentCity.Key
+  }
+
+  return location
 }

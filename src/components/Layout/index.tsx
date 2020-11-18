@@ -1,9 +1,8 @@
 import publicIp from 'public-ip'
 import React, { useCallback, useEffect, useState } from 'react'
-import { getLocationByIP } from '../../api/getFunctions'
+import { getLocationByIP, TLocation } from '../../api/getFunctions'
 import Forecast from '../Forecast'
 import Header from '../Header'
-import Search from '../Search'
 
 import { Container, ContentContainer } from './styles'
 
@@ -11,7 +10,10 @@ interface LayoutProps {
   toggleTheme: () => void
 }
 const Layout: React.FC<LayoutProps> = ({ toggleTheme }) => {
-  const [location, setLocation] = useState<string>('')
+  const [location, setLocation] = useState<TLocation>({
+    name: 'Curitiba - PR - Brasil',
+    key: ''
+  })
   const [ipAddress, setIpAddress] = useState<string>('')
 
   const getIp = useCallback(async () => {
@@ -22,15 +24,14 @@ const Layout: React.FC<LayoutProps> = ({ toggleTheme }) => {
   }, [])
 
   useEffect(() => {
-    getIp()
+    // getIp()
   }, [])
 
   return (
     <Container>
       <Header toggleTheme={toggleTheme} />
       <ContentContainer>
-        <Search location={location} />
-        <Forecast />
+        <Forecast location={location} />
       </ContentContainer>
     </Container>
   )

@@ -14,4 +14,9 @@ body {
   font: 400 16px Roboto, sans-serif;
   transition: all 0.7s;
 }
+
+button {
+  outline: none;
+  background-color: transparent;
+}
 `
