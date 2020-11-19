@@ -8,6 +8,7 @@ export const Container = styled.div`
   padding: 1rem 2rem;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
 
   -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);

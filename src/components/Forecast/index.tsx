@@ -1,18 +1,14 @@
 import React from 'react'
-import { TLocation } from '../../api/getFunctions'
 import HeaderInfo from './HeaderInfo'
 
 import { Container, Wrapper } from './styles'
 import WeatherNow from './WeatherNow'
 
-interface ForecastProps {
-  location: TLocation
-}
-const Forecast: React.FC<ForecastProps> = ({ location }) => {
+const Forecast: React.FC = () => {
   return (
     <Container>
       <Wrapper>
-        <HeaderInfo location={location} />
+        <HeaderInfo />
         <WeatherNow />
       </Wrapper>
     </Container>

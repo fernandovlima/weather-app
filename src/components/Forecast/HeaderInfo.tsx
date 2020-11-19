@@ -1,15 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ImInfo, ImLocation, ImSearch } from 'react-icons/im'
-import { TLocation } from '../../api/getFunctions'
+import LocationContext from '../../contexts/LocaitionContext'
 import IconButton from '../IconButton'
 
 import { HeaderInfoWrapper, HeaderWrapper } from './styles'
 
-interface HeaderInfoProps {
-  location: TLocation
-}
-
-const HeaderInfo: React.FC<HeaderInfoProps> = ({ location }) => {
+const HeaderInfo: React.FC = () => {
+  const { name } = useContext(LocationContext)
   return (
     <HeaderWrapper>
       <IconButton onClick={() => alert('test')}>
@@ -18,7 +15,7 @@ const HeaderInfo: React.FC<HeaderInfoProps> = ({ location }) => {
 
       <HeaderInfoWrapper>
         <ImLocation size={20} />
-        <p>{location.name}</p>
+        <p>{name}</p>
       </HeaderInfoWrapper>
 
       <IconButton onClick={() => alert('test')}>

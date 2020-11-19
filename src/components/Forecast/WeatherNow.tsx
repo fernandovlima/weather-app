@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import 'dayjs/locale/pt-br'
+
+import qs from 'qs'
 
 import Sunny from '../../assets/icons/day.svg'
 import MostlySunny from '../../assets/icons/cloudy-day-1.svg'
@@ -26,7 +28,13 @@ import {
   WeatherInfo,
   DailyWrapper
 } from './styles'
+
 import DayForecast from './DayForecast'
+import LocationContext from '../../contexts/LocaitionContext'
+import { DailyForecastsResponse } from '../../api/types/dailyForecastTypes'
+import { useFetch } from '../../hooks/useFetch'
+
+import { apiKey } from '../../config/apikey'
 
 export const getIcon = (icon: number, night: boolean) => {
   switch (icon) {
@@ -58,6 +66,7 @@ export const getIcon = (icon: number, night: boolean) => {
       return night ? <Showers /> : <MostlyShowers />
     case 15:
     case 16:
+    case 17:
     case 41:
     case 42:
       return <Thunder />
@@ -68,24 +77,36 @@ export const getIcon = (icon: number, night: boolean) => {
   }
 }
 const WeatherNow: React.FC = () => {
+  const { key } = useContext(LocationContext)
+
   dayjs.extend(localizedFormat)
   dayjs.locale('pt-br')
   const now = dayjs().format('dddd, D MMM, YYYY')
+
+  const params = {
+    apikey: apiKey,
+    language: 'pt-BR',
+    metric: true
+  }
+
+  const query = qs.stringify(params)
+
+  const { data: conditions } = useFetch<DailyForecastsResponse>(
+    `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?${query}`
+  )
 
   return (
     <NowWrapper>
       <Now>{now}</Now>
       <TemperatureWrapper>
-        <Temperature>20˚</Temperature>
+        <Temperature>{'20'}</Temperature>
         {getIcon(6, false)}
       </TemperatureWrapper>
       <WeatherInfo>Nublado</WeatherInfo>
       <DailyWrapper>
-        <DayForecast />
-        <DayForecast />
-        <DayForecast />
-        <DayForecast />
-        <DayForecast />
+        {conditions?.DailyForecasts.map((day, idx) => (
+          <DayForecast day={day} key={idx} />
+        ))}
       </DailyWrapper>
     </NowWrapper>
   )

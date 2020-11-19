@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   padding: 1.5rem;
-  min-width: 40%;
+  min-width: 50%;
   min-height: 80%;
   background-color: ${props => props.theme.colors.surface};
   border-radius: 0.5rem;
@@ -60,7 +60,7 @@ export const Now = styled.p`
 export const TemperatureWrapper = styled.div`
   display: flex;
   width: 80%;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 
   svg {
@@ -68,6 +68,7 @@ export const TemperatureWrapper = styled.div`
 `
 export const Temperature = styled.p`
   font-size: 6rem;
+  margin-right: 1.5rem;
 `
 export const WeatherInfo = styled.p`
   font-size: 1.5rem;
@@ -84,6 +85,7 @@ export const DayWrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-right: 1px solid ${props => props.theme.colors.text};
+  margin: 1.5rem 0;
 
   &:last-child {
     border-right: none;
