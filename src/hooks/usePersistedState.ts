@@ -20,7 +20,7 @@ export default function usePersistedState<T>(
     if (storageValue) {
       return setState(JSON.parse(storage))
     } else {
-      return state
+      return setState(initialValue)
     }
   }, [])
 
