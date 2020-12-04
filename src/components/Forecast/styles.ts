@@ -1,9 +1,9 @@
 import styled, { keyframes } from 'styled-components'
 import { lighten } from 'polished'
 
-import flipInX from 'react-animations/lib/flipInX'
-
+import { fadeDown, flipInX } from 'react-animations'
 const flipAnimation = keyframes`${flipInX}`
+const fadeDownAnimation = keyframes`${fadeDown}`
 
 export const Container = styled.div`
   display: flex;
@@ -106,4 +106,23 @@ export const Max = styled.p`
 `
 export const Min = styled.p`
   font-size: 1rem;
+`
+export const SearchWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+  align-items: center;
+  justify-content: center;
+  transition: 2s ease-in-out;
+`
+export const SearchInput = styled.input`
+  background-color: ${props => props.theme.colors.surfacelight};
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  width: 80%;
+  border: none;
+  color: ${props => props.theme.colors.text};
+  font-size: 1.25rem;
+  outline: none;
+  animation: 1s ${fadeDownAnimation};
 `

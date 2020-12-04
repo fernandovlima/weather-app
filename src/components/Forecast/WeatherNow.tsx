@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import 'dayjs/locale/pt-br'
 
+import ReactLoading from 'react-loading'
 import qs from 'qs'
 
 import Sunny from '../../assets/icons/day.svg'
@@ -36,6 +37,8 @@ import { Current } from '../../api/types/currentConditions'
 import { useFetch } from '../../hooks/useFetch'
 
 import { apiKey } from '../../config/apikey'
+import { useTheme } from 'styled-components'
+
 export const getIcon = (icon: number, night: boolean): JSX.Element => {
   switch (icon) {
     case 1:
@@ -78,6 +81,7 @@ export const getIcon = (icon: number, night: boolean): JSX.Element => {
 }
 const WeatherNow: React.FC = () => {
   const { key } = useContext(LocationContext)
+  const { colors } = useTheme()
 
   dayjs.extend(localizedFormat)
   dayjs.locale('pt-br')
@@ -97,6 +101,12 @@ const WeatherNow: React.FC = () => {
   const { data: current } = useFetch<Current>(
     `http://dataservice.accuweather.com/currentconditions/v1/${key}?${query}`
   )
+
+  if (!current) {
+    return (
+      <ReactLoading type="bars" width={100} height={30} color={colors.text} />
+    )
+  }
 
   return (
     <NowWrapper>
