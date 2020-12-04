@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
@@ -32,24 +32,24 @@ import {
 import DayForecast from './DayForecast'
 import LocationContext from '../../contexts/LocaitionContext'
 import { DailyForecastsResponse } from '../../api/types/dailyForecastTypes'
+import { Current } from '../../api/types/currentConditions'
 import { useFetch } from '../../hooks/useFetch'
 
 import { apiKey } from '../../config/apikey'
-
-export const getIcon = (icon: number, night: boolean) => {
+export const getIcon = (icon: number, night: boolean): JSX.Element => {
   switch (icon) {
     case 1:
     case 33:
-      return night ? <Clear /> : <Sunny />
+      return !night ? <Clear /> : <Sunny />
     case 2:
     case 34:
-      return night ? <MostlyClear /> : <MostlySunny />
+      return !night ? <MostlyClear /> : <MostlySunny />
     case 3:
     case 35:
-      return night ? <PartlyClear /> : <PartlySunny />
+      return !night ? <PartlyClear /> : <PartlySunny />
     case 4:
     case 36:
-      return night ? <IntermNight /> : <IntermClouds />
+      return !night ? <IntermNight /> : <IntermClouds />
     case 5:
     case 6:
     case 7:
@@ -63,7 +63,7 @@ export const getIcon = (icon: number, night: boolean) => {
     case 39:
     case 14:
     case 40:
-      return night ? <Showers /> : <MostlyShowers />
+      return !night ? <Showers /> : <MostlyShowers />
     case 15:
     case 16:
     case 17:
@@ -94,15 +94,20 @@ const WeatherNow: React.FC = () => {
   const { data: conditions } = useFetch<DailyForecastsResponse>(
     `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?${query}`
   )
+  const { data: current } = useFetch<Current>(
+    `http://dataservice.accuweather.com/currentconditions/v1/${key}?${query}`
+  )
 
   return (
     <NowWrapper>
       <Now>{now}</Now>
       <TemperatureWrapper>
-        <Temperature>{'20'}</Temperature>
-        {getIcon(6, false)}
+        <Temperature>
+          {`${current[0].Temperature.Metric.Value.toFixed()}˚`}
+        </Temperature>
+        {getIcon(current[0].WeatherIcon, current[0].IsDayTime)}
       </TemperatureWrapper>
-      <WeatherInfo>Nublado</WeatherInfo>
+      <WeatherInfo>{current[0].WeatherText}</WeatherInfo>
       <DailyWrapper>
         {conditions?.DailyForecasts.map((day, idx) => (
           <DayForecast day={day} key={idx} />

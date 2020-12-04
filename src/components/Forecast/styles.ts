@@ -1,4 +1,9 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+import { lighten } from 'polished'
+
+import flipInX from 'react-animations/lib/flipInX'
+
+const flipAnimation = keyframes`${flipInX}`
 
 export const Container = styled.div`
   display: flex;
@@ -62,9 +67,6 @@ export const TemperatureWrapper = styled.div`
   width: 80%;
   justify-content: center;
   align-items: center;
-
-  svg {
-  }
 `
 export const Temperature = styled.p`
   font-size: 6rem;
@@ -77,6 +79,9 @@ export const WeatherInfo = styled.p`
 
 export const DailyWrapper = styled.div`
   display: flex;
+  background-color: ${props => lighten(0.05, props.theme.colors.surface)};
+  border-radius: 0.5rem;
+  animation: 1s ${flipAnimation};
 `
 export const DayWrapper = styled.div`
   display: flex;

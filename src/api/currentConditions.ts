@@ -7,9 +7,7 @@ export interface TLocation {
   key: string
 }
 
-export async function getCurrentConditions(
-  key: string
-): Promise<DailyForecastsResponse> {
+export async function getCurrentConditions(key: string): Promise<any> {
   const params = {
     apikey: apiKey,
     language: 'pt-BR'
@@ -17,10 +15,9 @@ export async function getCurrentConditions(
 
   const query = qs.stringify(params)
 
-  const response = await fetch(
-    `http://dataservice.accuweather.com/currentconditions/v1/${key}`
-  )
-  const data = await response.json()
-
-  return data
+  await fetch(
+    `http://dataservice.accuweather.com/currentconditions/v1/${key}?${query}`
+  ).then(response => {
+    return response.json()
+  })
 }
